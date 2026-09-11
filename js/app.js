@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const frequencies = [125, 250, 500, 1000, 2000, 4000, 8000];
+  const frequencies = [63, 80, 125, 180, 250, 350, 500, 700, 1000, 1400, 2000, 2800, 4000, 5600, 8000, 16000];
   const frequencySlider = document.querySelector("#frequency");
   const durationSlider = document.querySelector("#duration");
   const volumeSlider = document.querySelector("#volume");
@@ -100,9 +100,24 @@
   [frequencySlider, durationSlider, volumeSlider].forEach((control) => control.addEventListener("input", updateDisplays));
   toggleButton.addEventListener("click", () => startTone().catch(() => setIdle("Аудиото не може да бъде стартирано")));
   document.addEventListener("keydown", (event) => {
-    if (event.code === "Space" && event.target === document.body) {
+    const isControl = event.target.matches("input, button, select, textarea");
+    if (event.code === "Space" && !isControl) {
       event.preventDefault();
       startTone().catch(() => setIdle("Аудиото не може да бъде стартирано"));
+    }
+    if (isControl) return;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      frequencySlider.value = Math.min(frequencies.length - 1,
+        Math.max(0, Number(frequencySlider.value) + direction));
+      updateDisplays();
+    }
+    if (event.key.toLowerCase() === "a" || event.key.toLowerCase() === "d") {
+      event.preventDefault();
+      const direction = event.key.toLowerCase() === "d" ? 1 : -1;
+      durationSlider.value = Math.min(30, Math.max(1, Number(durationSlider.value) + direction));
+      updateDisplays();
     }
   });
   updateDisplays();
