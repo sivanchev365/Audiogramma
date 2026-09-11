@@ -22,6 +22,7 @@
   let stopTimer;
   let countdownTimer;
   let startedAt;
+  let toggleInProgress = false;
 
   const formatFrequency = (frequency) => frequency >= 1000 ? `${frequency / 1000}k` : frequency;
 
@@ -58,43 +59,51 @@
   }
 
   async function startTone() {
+    if (toggleInProgress) return;
+    toggleInProgress = true;
+
     if (oscillator) {
       stopTone();
+      toggleInProgress = false;
       return;
     }
 
-    if (!audioContext) audioContext = new AudioContext();
-    await audioContext.resume();
+    try {
+      if (!audioContext) audioContext = new AudioContext();
+      await audioContext.resume();
 
-    const frequency = frequencies[Number(frequencySlider.value)];
-    const duration = Number(durationSlider.value);
-    const volume = Number(volumeSlider.value) / 100;
-    oscillator = audioContext.createOscillator();
-    gainNode = audioContext.createGain();
-    oscillator.type = "sine";
-    oscillator.frequency.value = frequency;
-    // Keep the browser output conservative; the system volume still applies.
-    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-    gainNode.gain.linearRampToValueAtTime(volume * 0.35, audioContext.currentTime + 0.04);
-    gainNode.gain.setValueAtTime(volume * 0.35, audioContext.currentTime + Math.max(0.05, duration - 0.08));
-    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
-    oscillator.connect(gainNode).connect(audioContext.destination);
-    oscillator.start();
-    oscillator.onended = () => setIdle("Тестът приключи");
+      const frequency = frequencies[Number(frequencySlider.value)];
+      const duration = Number(durationSlider.value);
+      const volume = Number(volumeSlider.value) / 100;
+      oscillator = audioContext.createOscillator();
+      gainNode = audioContext.createGain();
+      oscillator.type = "sine";
+      oscillator.frequency.value = frequency;
+      // Keep the browser output conservative; the system volume still applies.
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(volume * 0.35, audioContext.currentTime + 0.04);
+      gainNode.gain.setValueAtTime(volume * 0.35, audioContext.currentTime + Math.max(0.05, duration - 0.08));
+      gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
+      oscillator.connect(gainNode).connect(audioContext.destination);
+      oscillator.start();
+      oscillator.onended = () => setIdle("Тестът приключи");
 
-    startedAt = performance.now();
-    status.textContent = `Звучи ${formatFrequency(frequency)} Hz`;
-    statusRing.classList.add("playing");
-    statusIcon.textContent = "◉";
-    toggleButton.classList.add("stop");
-    buttonIcon.textContent = "■";
-    buttonText.textContent = "Спри тона";
-    timer.textContent = `${duration.toFixed(1)} сек`;
-    countdownTimer = setInterval(() => {
-      const remaining = Math.max(0, duration - (performance.now() - startedAt) / 1000);
-      timer.textContent = `${remaining.toFixed(1)} сек`;
-    }, 50);
-    stopTimer = setTimeout(() => stopTone("Тестът приключи"), duration * 1000 + 120);
+      startedAt = performance.now();
+      status.textContent = `Звучи ${formatFrequency(frequency)} Hz`;
+      statusRing.classList.add("playing");
+      statusIcon.textContent = "◉";
+      toggleButton.classList.add("stop");
+      buttonIcon.textContent = "■";
+      buttonText.textContent = "Спри тона";
+      timer.textContent = `${duration.toFixed(1)} сек`;
+      countdownTimer = setInterval(() => {
+        const remaining = Math.max(0, duration - (performance.now() - startedAt) / 1000);
+        timer.textContent = `${remaining.toFixed(1)} сек`;
+      }, 50);
+      stopTimer = setTimeout(() => stopTone("Тестът приключи"), duration * 1000 + 120);
+    } finally {
+      toggleInProgress = false;
+    }
   }
 
   [frequencySlider, durationSlider, volumeSlider].forEach((control) => control.addEventListener("input", updateDisplays));
@@ -103,6 +112,7 @@
     const isControl = event.target.matches("input, button, select, textarea");
     if (event.code === "Space" && !isControl) {
       event.preventDefault();
+      if (event.repeat) return;
       startTone().catch(() => setIdle("Аудиото не може да бъде стартирано"));
     }
     if (isControl) return;
