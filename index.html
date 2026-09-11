@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>Генератор на тонове — аудиограма</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <p class="eyebrow">АУДИО ТЕСТ</p>
+      <h1>Генератор на тонове</h1>
+      <p class="subtitle">Проверявайте чуването на стандартни честоти с кратък чист синусоидален тон.</p>
+    </header>
+
+    <section class="panel" aria-labelledby="frequency-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ЧЕСТОТА</p>
+          <h2 id="frequency-heading"><output id="frequencyValue">1000</output> Hz</h2>
+        </div>
+        <span class="badge">Аудиометрични стъпки</span>
+      </div>
+      <input id="frequency" type="range" min="0" max="6" step="1" value="3"
+             aria-label="Честота">
+      <div class="range-labels" aria-hidden="true">
+        <span>125</span><span>250</span><span>500</span><span>1k</span>
+        <span>2k</span><span>4k</span><span>8k</span>
+      </div>
+    </section>
+
+    <section class="panel controls" aria-labelledby="settings-heading">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">НАСТРОЙКИ</p>
+          <h2 id="settings-heading">Продължителност и ниво</h2>
+        </div>
+      </div>
+
+      <label class="control-row" for="duration">
+        <span>
+          <strong>Продължителност</strong>
+          <small>Автоматично спиране след максимум 30 секунди</small>
+        </span>
+        <output id="durationValue">5 сек</output>
+      </label>
+      <input id="duration" type="range" min="1" max="30" step="1" value="5"
+             aria-label="Продължителност в секунди">
+
+      <label class="control-row" for="volume">
+        <span>
+          <strong>Сила на звука</strong>
+          <small>Началното ниво е умишлено ниско</small>
+        </span>
+        <output id="volumeValue">10%</output>
+      </label>
+      <input id="volume" type="range" min="0" max="100" step="1" value="10"
+             aria-label="Сила на звука">
+    </section>
+
+    <section class="action-area" aria-live="polite">
+      <div class="status-ring" id="statusRing">
+        <span id="statusIcon">♪</span>
+      </div>
+      <p class="status" id="status">Готово за тест</p>
+      <p class="timer" id="timer">5.0 сек</p>
+      <button id="toggleButton" class="primary-button" type="button">
+        <span id="buttonIcon">▶</span>
+        <span id="buttonText">Пусни тона</span>
+      </button>
+    </section>
+
+    <aside class="safety-note">
+      <strong>Важно за безопасността</strong>
+      <p>Това е ориентировъчен тест, не медицинска аудиограма. Не използвайте висока сила и спрете веднага при дискомфорт. За надежден резултат се обърнете към аудиолог.</p>
+    </aside>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
