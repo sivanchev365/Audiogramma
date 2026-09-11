@@ -1,4 +1,4 @@
-:root, [data-theme="dark"] {
+:root {
   color-scheme: dark;
   --bg: #080c18;
   --panel: rgba(19, 27, 49, 0.82);
@@ -9,20 +9,6 @@
   --accent-strong: #4f83f1;
   --success: #5ee0ad;
   --warning: #ffc76b;
-  --surface: #101a31;
-}
-[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f2f5fb;
-  --panel: rgba(255,255,255,.9);
-  --panel-border: rgba(45,61,91,.16);
-  --text: #16213b;
-  --muted: #5d6a82;
-  --accent: #2e64c7;
-  --accent-strong: #2e64c7;
-  --success: #087d59;
-  --warning: #9a6100;
-  --surface: #fff;
 }
 
 * { box-sizing: border-box; }
@@ -33,19 +19,15 @@ body {
   background: radial-gradient(circle at 50% -10%, #1b2c55 0, var(--bg) 48%);
   color: var(--text);
   font: 16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  transition: background .2s, color .2s;
 }
-[data-theme="light"] body { background: radial-gradient(circle at 50% -10%, #dbe7ff 0, var(--bg) 48%); }
 
 .app-shell { width: min(680px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 24px; }
 .hero { margin-bottom: 16px; }
-.hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 .eyebrow { margin: 0 0 7px; color: var(--accent); font-size: .72rem; font-weight: 800; letter-spacing: .16em; }
 h1, h2, p { margin-top: 0; }
 h1 { margin-bottom: 5px; font-size: clamp(1.8rem, 6vw, 2.7rem); letter-spacing: -.04em; line-height: 1.05; }
 h2 { margin: 0; font-size: 1.35rem; letter-spacing: -.02em; }
 .subtitle { max-width: 500px; margin-bottom: 0; color: var(--muted); }
-.icon-button { width: 38px; height: 38px; border: 1px solid var(--panel-border); border-radius: 11px; background: var(--panel); color: var(--text); font-size: 1.2rem; cursor: pointer; }
 
 .panel, .safety-note {
   border: 1px solid var(--panel-border);
@@ -69,16 +51,6 @@ input[type="range"] {
 .control-row strong, .control-row small { display: block; }
 .control-row small { margin-top: 2px; color: var(--muted); font-size: .8rem; }
 output { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 800; white-space: nowrap; }
-.settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 15px; }
-.select-control, .check-control { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 8px 10px; border: 1px solid var(--panel-border); border-radius: 11px; background: rgba(127, 145, 190, .06); }
-.select-control { justify-content: space-between; }
-.select-control span, .check-control span { display: flex; flex-direction: column; line-height: 1.2; }
-.select-control > span { color: var(--muted); font-size: .8rem; }
-.select-control select { max-width: 125px; border: 0; background: transparent; color: var(--text); font: inherit; font-size: .83rem; font-weight: 700; }
-.select-control option { background: var(--surface); color: var(--text); }
-.check-control input { width: 17px; height: 17px; accent-color: var(--accent); }
-.check-control strong { font-size: .83rem; }
-.check-control small { margin-top: 2px; color: var(--muted); font-size: .68rem; }
 
 .action-area { padding: 13px 0 15px; text-align: center; }
 .status-ring { display: grid; place-items: center; width: 58px; height: 58px; margin: 0 auto 8px; border: 1px solid rgba(115, 167, 255, .3); border-radius: 50%; background: rgba(115, 167, 255, .1); color: var(--accent); font-size: 1.4rem; }
@@ -89,47 +61,16 @@ output { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 
 .primary-button:hover { background: #6495f5; transform: translateY(-1px); }
 .primary-button:active { transform: translateY(1px); }
 .primary-button.stop { background: #bd5d70; }
-.mark-buttons { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
-.result-button, .secondary-button { border: 1px solid var(--panel-border); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer; }
-.result-button { padding: 7px 12px; }
-.result-button.heard { border-color: rgba(94,224,173,.5); color: var(--success); }
-.result-button.missed { border-color: rgba(189,93,112,.45); color: #d97b8d; }
-kbd { padding: 1px 4px; border: 1px solid currentColor; border-radius: 4px; font-size: .66rem; opacity: .8; }
-.result-status { min-height: 20px; margin: 7px 0 0; color: var(--muted); font-size: .78rem; }
 .keyboard-hint { margin: 8px 0 0; color: var(--muted); font-size: .72rem; }
-.chart-panel { padding-bottom: 12px; }
-.export-buttons { display: flex; gap: 6px; }
-.secondary-button { padding: 6px 9px; font-size: .75rem; }
-.chart-note { margin: -4px 0 10px; color: var(--muted); font-size: .76rem; }
-.chart-wrap { overflow-x: auto; border: 1px solid var(--panel-border); border-radius: 12px; background: rgba(127,145,190,.05); }
-#audiogramChart { display: block; width: 100%; min-width: 520px; height: auto; }
-#audiogramChart text { fill: var(--muted); font: 11px ui-sans-serif, system-ui, sans-serif; }
-#audiogramChart .grid { stroke: var(--panel-border); stroke-width: 1; }
-#audiogramChart .axis { stroke: var(--muted); stroke-width: 1; }
-#audiogramChart .left { fill: #e06b7b; stroke: #e06b7b; }
-#audiogramChart .right { fill: #5d9aff; stroke: #5d9aff; }
-#audiogramChart .not-heard { fill: none; stroke-width: 2; }
-#audiogramChart .legend { font-size: 10px; font-weight: 700; }
-.text-button { margin-top: 8px; padding: 3px 0; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .75rem; text-decoration: underline; cursor: pointer; }
 .safety-note { padding: 12px 16px; border-color: rgba(255, 199, 107, .2); background: rgba(72, 52, 22, .25); }
 .safety-note strong { color: var(--warning); }
 .safety-note p { margin: 5px 0 0; color: var(--muted); font-size: .82rem; }
 
 @keyframes pulse { 50% { transform: scale(1.05); } }
-@media print {
-  body { background: white; color: #111; }
-  .app-shell { width: 100%; padding: 0; }
-  .hero .icon-button, .controls, .action-area, .safety-note, .export-buttons, .text-button { display: none !important; }
-  .panel { border: 1px solid #bbb; box-shadow: none; }
-  .chart-panel { display: block; }
-  .chart-note { color: #444; }
-}
 @media (max-width: 520px) {
   .app-shell { padding-top: 20px; }
   .panel { padding: 15px 16px; }
   .section-heading { flex-direction: column; }
   .badge { align-self: flex-start; }
   .control-row { align-items: flex-start; }
-  .settings-grid { grid-template-columns: 1fr; }
-  .export-buttons { align-self: flex-start; }
 }

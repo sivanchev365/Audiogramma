@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="bg" data-theme="dark">
+<html lang="bg">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,13 +10,8 @@
 <body>
   <main class="app-shell">
     <header class="hero">
-      <div class="hero-top">
-        <div>
-          <p class="eyebrow">АУДИО ТЕСТ</p>
-          <h1>Генератор на тонове</h1>
-        </div>
-        <button id="themeToggle" class="icon-button" type="button" aria-label="Превключи светла/тъмна тема">☼</button>
-      </div>
+      <p class="eyebrow">АУДИО ТЕСТ</p>
+      <h1>Генератор на тонове</h1>
       <p class="subtitle">Проверявайте чуването на стандартни честоти с кратък чист синусоидален тон.</p>
     </header>
 
@@ -64,53 +59,6 @@
       </label>
       <input id="volume" type="range" min="0" max="100" step="1" value="10"
              aria-label="Сила на звука">
-
-      <label class="control-row" for="referenceLevel">
-        <span>
-          <strong>Относително референтно ниво</strong>
-          <small>Само процент от изхода, не е dB HL калибрация</small>
-        </span>
-        <output id="referenceLevelValue">35%</output>
-      </label>
-      <input id="referenceLevel" type="range" min="10" max="100" step="1" value="35"
-             aria-label="Относително референтно ниво">
-
-      <label class="control-row" for="fade">
-        <span>
-          <strong>Плавно включване/изключване</strong>
-          <small>Предпазва от щракване при старт и стоп</small>
-        </span>
-        <output id="fadeValue">0.04 сек</output>
-      </label>
-      <input id="fade" type="range" min="0.01" max="1" step="0.01" value="0.04"
-             aria-label="Продължителност на затихването">
-
-      <div class="settings-grid">
-        <label class="select-control">
-          <span>Ухо</span>
-          <select id="ear" aria-label="Избиране на ухо">
-            <option value="both">Двете уши</option>
-            <option value="left">Ляво ухо</option>
-            <option value="right">Дясно ухо</option>
-          </select>
-        </label>
-        <label class="check-control">
-          <input id="randomMode" type="checkbox">
-          <span><strong>Случайна честота</strong><small>Нова честота при всеки старт</small></span>
-        </label>
-        <label class="check-control">
-          <input id="maskingEnabled" type="checkbox">
-          <span><strong>Маскиращ шум</strong><small>Широколентов шум в избраното ухо</small></span>
-        </label>
-        <label class="select-control">
-          <span>Ниво на шума</span>
-          <select id="maskingVolume" aria-label="Ниво на маскиращия шум">
-            <option value="5">5% (ниско)</option>
-            <option value="10" selected>10% (умерено)</option>
-            <option value="20">20% (по-силно)</option>
-          </select>
-        </label>
-      </div>
     </section>
 
     <section class="action-area" aria-live="polite">
@@ -123,35 +71,12 @@
         <span id="buttonIcon">▶</span>
         <span id="buttonText">Пусни тона</span>
       </button>
-      <div class="mark-buttons" role="group" aria-label="Резултат от чуването">
-        <button id="heardButton" class="result-button heard" type="button">✓ Чух <kbd>H</kbd></button>
-        <button id="notHeardButton" class="result-button missed" type="button">✕ Не чух <kbd>N</kbd></button>
-      </div>
-      <p id="resultStatus" class="result-status" aria-live="polite">Маркирайте резултата след всеки тон.</p>
-      <p class="keyboard-hint">Space: пуск/стоп&nbsp;&nbsp; ← →: честота&nbsp;&nbsp; A/D: продължителност&nbsp;&nbsp; H/N: резултат</p>
-    </section>
-
-    <section class="panel chart-panel" aria-labelledby="chart-heading">
-      <div class="section-heading compact">
-        <div>
-          <p class="eyebrow">РЕЗУЛТАТИ</p>
-          <h2 id="chart-heading">Визуална аудиограма</h2>
-        </div>
-        <div class="export-buttons">
-          <button id="csvButton" class="secondary-button" type="button">CSV</button>
-          <button id="printButton" class="secondary-button" type="button">Печат / PDF</button>
-        </div>
-      </div>
-      <p class="chart-note">Нивото е относителен изход (%), а не измерване в dB HL. Използвайте професионална апаратура за диагностика.</p>
-      <div class="chart-wrap">
-        <svg id="audiogramChart" viewBox="0 0 640 280" role="img" aria-label="Графика на резултатите"></svg>
-      </div>
-      <button id="clearResultsButton" class="text-button" type="button">Изчисти резултатите</button>
+      <p class="keyboard-hint">Space: пуск/стоп&nbsp;&nbsp; ← →: честота</p>
     </section>
 
     <aside class="safety-note">
       <strong>Важно за безопасността</strong>
-      <p>Това е ориентировъчен тест, не медицинска аудиограма. Произволни слушалки, устройства и околна среда не позволяват честотна или dB HL калибрация. Не използвайте висока сила и спрете при дискомфорт; за надежден резултат се обърнете към аудиолог.</p>
+      <p>Това е ориентировъчен тест, не медицинска аудиограма. Не използвайте висока сила и спрете веднага при дискомфорт. За надежден резултат се обърнете към аудиолог.</p>
     </aside>
   </main>
   <script src="js/app.js"></script>
